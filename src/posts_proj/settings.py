@@ -38,8 +38,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    #our own apps
     'posts',
     'profiles',
+
+    #3rd party apps
+    'crispy_forms'
     
 ]
 
@@ -58,7 +62,7 @@ ROOT_URLCONF = 'posts_proj.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [ BASE_DIR / 'templates' ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
