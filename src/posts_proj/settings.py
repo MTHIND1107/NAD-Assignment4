@@ -127,6 +127,8 @@ STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
+    BASE_DIR / 'posts' / 'static',
+    BASE_DIR / 'profiles' / 'static'
 ]
 
 # Default primary key field type
