@@ -10,5 +10,5 @@ app_name = 'posts'
 urlpatterns = [
     path('', post_list_and_create, name='main-board'),
 
-    path('/hello-world/', hello_world_view, name='hello-world'),
+    path('hello-world/', hello_world_view, name='hello-world'),
 ]
