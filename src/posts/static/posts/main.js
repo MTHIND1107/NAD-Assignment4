@@ -71,7 +71,7 @@ const getData = () => {
                                     <a href="#" class="btn btn-primary">Details</a>
                                 </div>
                                 <div class="col-2">
-                                    <form class="like-unlike-forms" data-forms-id="${el.id}">
+                                    <form class="like-unlike-forms" data-form-id="${el.id}">
                                         <button href="#" class="btn btn-primary" id="like-unlike-${el.id}">${el.liked ? `Unlike (${el.count})` : `Like (${el.count})`}</button>
                                     </form>
                                 </div>
