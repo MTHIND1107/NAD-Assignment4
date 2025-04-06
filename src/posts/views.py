@@ -24,14 +24,15 @@ def post_list_and_create(request):
     return render(request, 'posts/main.html', context)
 
 def load_post_data_view(request, num_posts):
-    visible = 3
-    upper = num_posts
-    lower = upper - visible
-    size = Post.objects.all().count()
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+      visible = 3
+      upper = num_posts
+      lower = upper - visible
+      size = Post.objects.all().count()
 
-    qs = Post.objects.all()
-    data= []
-    for obj in qs:
+      qs = Post.objects.all()
+      data= []
+      for obj in qs:
         item = {
             'id': obj.id,
             'title': obj.title,
