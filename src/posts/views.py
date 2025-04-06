@@ -38,7 +38,7 @@ def post_detail(request, pk):
         'form': form,
     }
 
-    return render(request, 'posts/detail.hrml', context)
+    return render(request, 'posts/detail.html', context)
 
 def load_post_data_view(request, num_posts):
     if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
