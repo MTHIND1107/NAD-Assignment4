@@ -5,6 +5,7 @@ from .forms import PostForm
 from profiles.models import Profile
 from .utils import action_permission
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect
 # Create your views here.
 
 
@@ -73,8 +74,10 @@ def post_detail_data_view(request, pk):
             'body': obj.body,
             'author':obj.author.user.username,
             'logged_in':request.user.username,
-    }
+        }
     return JsonResponse({'data':data})
+
+
     
 @login_required
 def like_unlike_post(request):
@@ -88,6 +91,7 @@ def like_unlike_post(request):
             liked = True
             obj.liked.add(request.user)
         return JsonResponse({'liked': liked, 'count': obj.like_count})
+    return redirect('posts:main-board')
 
 @login_required
 @action_permission
