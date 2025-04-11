@@ -1,11 +1,12 @@
 from django.shortcuts import render
-from .models import Post, Photo
+from .models import Post, Photo, Comment
 from django.http import JsonResponse, HttpResponse
-from .forms import PostForm
+from .forms import PostForm, CommentForm
 from profiles.models import Profile
 from .utils import action_permission
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
+
 # Create your views here.
 
 
@@ -35,13 +36,30 @@ def post_list_and_create(request):
 def post_detail(request, pk):
     obj = Post.objects.get(pk=pk)
     form = PostForm()
+    comments = obj.comments.all().order_by('-created_at')
 
     context = {
         'obj': obj,
         'form': form,
+        'comment_form':CommentForm,
+        'comments': comments,
     }
 
     return render(request, 'posts/detail.html', context)
+
+@login_required
+def add_comment(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.author = request.user
+            comment.save()
+    
+    return redirect('posts:post-detail', pk=pk)
 
 @login_required
 def load_post_data_view(request, num_posts):
